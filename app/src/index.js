@@ -10,7 +10,7 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 
-const REGION = AWS_REGION;
+const REGION = "ap-southeast-2";
 
 const client = new DynamoDBClient({
   region: REGION,
