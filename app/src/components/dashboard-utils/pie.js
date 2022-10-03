@@ -8,9 +8,10 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import LaptopMacIcon from "@mui/icons-material/LaptopMac";
-import PhoneIcon from "@mui/icons-material/Phone";
-import TabletIcon from "@mui/icons-material/Tablet";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LocalDrinkIcon from "@mui/icons-material/LocalDrink";
+import GrassIcon from "@mui/icons-material/Grass";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 export const PieChart = (props) => {
   const theme = useTheme();
@@ -18,14 +19,14 @@ export const PieChart = (props) => {
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
-        backgroundColor: ["#3F51B5", "#e53935", "#FB8C00"],
+        data: [63, 15, 23, 14],
+        backgroundColor: ["#E53935", "#FB8C00", "#3F51B5", "#64e65b"],
         borderWidth: 8,
         borderColor: "#FFFFFF",
         hoverBorderColor: "#FFFFFF",
       },
     ],
-    labels: ["Desktop", "Tablet", "Mobile"],
+    labels: ["General Waste", "Recycling", "Containers4Change", "Compost"],
   };
 
   const options = {
@@ -52,27 +53,33 @@ export const PieChart = (props) => {
 
   const devices = [
     {
-      title: "Desktop",
+      title: "General Waste",
       value: 63,
-      icon: LaptopMacIcon,
-      color: "#3F51B5",
-    },
-    {
-      title: "Tablet",
-      value: 15,
-      icon: TabletIcon,
+      icon: DeleteIcon,
       color: "#E53935",
     },
     {
-      title: "Mobile",
-      value: 23,
-      icon: PhoneIcon,
+      title: "Recycling",
+      value: 15,
+      icon: AutorenewIcon,
       color: "#FB8C00",
+    },
+    {
+      title: "Containers4Change",
+      value: 23,
+      icon: LocalDrinkIcon,
+      color: "#3F51B5",
+    },
+    {
+      title: "Compost",
+      value: 14,
+      icon: GrassIcon,
+      color: "#64e65b",
     },
   ];
   return (
     <Card {...props}>
-      <CardHeader title="Pie" />
+      <CardHeader title="Waste Composition" />
       <Divider />
       <CardContent>
         <Box

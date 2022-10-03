@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import PeopleIcon from "@mui/icons-material/PeopleOutlined";
+import Co2Icon from "@mui/icons-material/Co2";
 
 export const CO2Saved = (props) => (
   <Card {...props}>
@@ -15,7 +15,7 @@ export const CO2Saved = (props) => (
       <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
         <Grid item>
           <Typography color="textSecondary" gutterBottom variant="overline">
-            TOTAL CUSTOMERS
+            CO2 SAVED
           </Typography>
           <Typography color="textPrimary" variant="h4">
             1,6k
@@ -29,7 +29,7 @@ export const CO2Saved = (props) => (
               width: 56,
             }}
           >
-            <PeopleIcon />
+            <Co2Icon />
           </Avatar>
         </Grid>
       </Grid>

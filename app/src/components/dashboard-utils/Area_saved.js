@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import MoneyIcon from "@mui/icons-material/Money";
+import LandscapeIcon from "@mui/icons-material/Landscape";
 
 export const AreaSaved = (props) => (
   <Card sx={{ height: "100%" }} {...props}>
@@ -29,7 +29,7 @@ export const AreaSaved = (props) => (
               width: 56,
             }}
           >
-            <MoneyIcon />
+            <LandscapeIcon />
           </Avatar>
         </Grid>
       </Grid>

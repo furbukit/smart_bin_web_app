@@ -23,7 +23,7 @@ export const WasteBar = (props) => {
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [18, 5, 19, 27, 29, 19, 20],
-        label: "This year",
+        label: "This month",
         maxBarThickness: 10,
       },
       {
@@ -33,7 +33,7 @@ export const WasteBar = (props) => {
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: [11, 20, 12, 29, 30, 25, 13],
-        label: "Last year",
+        label: "Last month",
         maxBarThickness: 10,
       },
     ],
@@ -97,7 +97,7 @@ export const WasteBar = (props) => {
             Last 7 days
           </Button>
         }
-        title="Waste"
+        title="Your Waste"
       />
       <Divider />
       <CardContent>

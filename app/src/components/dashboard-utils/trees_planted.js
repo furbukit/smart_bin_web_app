@@ -1,5 +1,5 @@
 import { Avatar, Card, CardContent, Grid, Typography } from "@mui/material";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import ParkIcon from "@mui/icons-material/Park";
 
 export const TreesPlanted = (props) => (
   <Card {...props}>
@@ -7,10 +7,10 @@ export const TreesPlanted = (props) => (
       <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
         <Grid item>
           <Typography color="textSecondary" gutterBottom variant="overline">
-            TOTAL PROFIT
+            TREES PLANTED
           </Typography>
           <Typography color="textPrimary" variant="h4">
-            $23k
+            0.23
           </Typography>
         </Grid>
         <Grid item>
@@ -21,7 +21,7 @@ export const TreesPlanted = (props) => (
               width: 56,
             }}
           >
-            <AttachMoneyIcon />
+            <ParkIcon />
           </Avatar>
         </Grid>
       </Grid>

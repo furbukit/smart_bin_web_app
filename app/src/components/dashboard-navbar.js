@@ -53,11 +53,6 @@ export const DashboardNavbar = (props) => {
           <Box>
             <img src={logo} width="200px" height="80px" text-align="left" />
           </Box>
-          <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Contacts">
             <IconButton sx={{ ml: 1 }}>

@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import InsertChartIcon from "@mui/icons-material/InsertChartOutlined";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 export const RecyclingRate = (props) => (
   <Card sx={{ height: "100%" }} {...props}>
