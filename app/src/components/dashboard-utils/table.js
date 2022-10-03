@@ -17,7 +17,7 @@ import {
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { SeverityPill } from "../severity-pill";
 
-const orders = [
+const items = [
   {
     id: uuid(),
     ref: "CDD1049",
@@ -26,7 +26,7 @@ const orders = [
       name: "Ekaterina Tankova",
     },
     createdAt: 1555016400000,
-    status: "pending",
+    status: "RECYCLING",
   },
   {
     id: uuid(),
@@ -36,7 +36,7 @@ const orders = [
       name: "Cao Yu",
     },
     createdAt: 1555016400000,
-    status: "delivered",
+    status: "COMPOST",
   },
   {
     id: uuid(),
@@ -46,7 +46,7 @@ const orders = [
       name: "Alexa Richardson",
     },
     createdAt: 1554930000000,
-    status: "refunded",
+    status: "GENERAL WASTE",
   },
   {
     id: uuid(),
@@ -56,7 +56,7 @@ const orders = [
       name: "Anje Keizer",
     },
     createdAt: 1554757200000,
-    status: "pending",
+    status: "CONTAINERS4CHANGE",
   },
   {
     id: uuid(),
@@ -66,7 +66,7 @@ const orders = [
       name: "Clarke Gillebert",
     },
     createdAt: 1554670800000,
-    status: "delivered",
+    status: "RECYCLING",
   },
   {
     id: uuid(),
@@ -76,20 +76,20 @@ const orders = [
       name: "Adam Denisov",
     },
     createdAt: 1554670800000,
-    status: "delivered",
+    status: "COMPOST",
   },
 ];
 
 export const WasteTable = (props) => (
   <Card {...props}>
-    <CardHeader title="Latest Orders" />
+    <CardHeader title="Latest Items" />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Order Ref</TableCell>
-              <TableCell>Customer</TableCell>
+              <TableCell>Cost</TableCell>
+              <TableCell>Item</TableCell>
               <TableCell sortDirection="desc">
                 <Tooltip enterDelay={300} title="Sort">
                   <TableSortLabel active direction="desc">
@@ -97,24 +97,26 @@ export const WasteTable = (props) => (
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Type</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
-              <TableRow hover key={order.id}>
-                <TableCell>{order.ref}</TableCell>
-                <TableCell>{order.customer.name}</TableCell>
-                <TableCell>{format(order.createdAt, "dd/MM/yyyy")}</TableCell>
+            {items.map((item) => (
+              <TableRow hover key={item.id}>
+                <TableCell>{item.ref}</TableCell>
+                <TableCell>{item.customer.name}</TableCell>
+                <TableCell>{format(item.createdAt, "dd/MM/yyyy")}</TableCell>
                 <TableCell>
                   <SeverityPill
                     color={
-                      (order.status === "delivered" && "success") ||
-                      (order.status === "refunded" && "error") ||
-                      "warning"
+                      (item.status === "RECYCLING" && "warning") ||
+                      (item.status === "GENERAL WASTE" && "error") ||
+                      (item.status === "COMPOST" && "success") ||
+                      (item.status === "CONTAINERS4CHANGE" && "info") ||
+                      "error"
                     }
                   >
-                    {order.status}
+                    {item.status}
                   </SeverityPill>
                 </TableCell>
               </TableRow>
