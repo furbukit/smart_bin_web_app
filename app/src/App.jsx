@@ -12,10 +12,28 @@ import { registerChartJs } from "./components/dashboard-utils/register-chart-js"
 import { ThemeProvider } from "@mui/material/styles";
 import { DashboardNavbar } from "./components/dashboard-navbar";
 import { theme } from "./theme";
+import { fetchData } from "./AwsFunctions";
+
+// STARTS HERE
+import * as AWS from "aws-sdk";
+
+const config = {
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+  accessSecretKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  region: "ap-southeast-2",
+  output: "json",
+};
+
+AWS.config.update(config);
+
+// ENDS HERE
 
 registerChartJs();
 
 function App() {
+  const fetchDataFormDynamoDb = () => {
+    fetchData("users");
+  };
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -41,6 +59,7 @@ function App() {
               <TreesPlanted sx={{ height: "100%" }} />
             </Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
+              <button onClick={() => fetchDataFormDynamoDb()}> Fetch </button>
               <WasteBar />
             </Grid>
             <Grid item lg={4} md={6} xl={3} xs={12}>

@@ -20,60 +20,60 @@ import { SeverityPill } from "../severity-pill";
 const items = [
   {
     id: uuid(),
-    ref: "CDD1049",
+    ref: "$2.99",
     amount: 30.5,
     customer: {
-      name: "Ekaterina Tankova",
+      name: "2L Full Cream Milk Bottle",
     },
     createdAt: 1555016400000,
     status: "RECYCLING",
   },
   {
     id: uuid(),
-    ref: "CDD1048",
+    ref: "$43000",
     amount: 25.1,
     customer: {
-      name: "Cao Yu",
+      name: "Lettuce",
     },
     createdAt: 1555016400000,
     status: "COMPOST",
   },
   {
     id: uuid(),
-    ref: "CDD1047",
+    ref: "$12.97",
     amount: 10.99,
     customer: {
-      name: "Alexa Richardson",
+      name: "Chicken Breast 1Kg",
     },
     createdAt: 1554930000000,
     status: "GENERAL WASTE",
   },
   {
     id: uuid(),
-    ref: "CDD1046",
+    ref: "$5.79",
     amount: 96.43,
     customer: {
-      name: "Anje Keizer",
+      name: "Emu Export 330mL Bottle",
     },
     createdAt: 1554757200000,
     status: "CONTAINERS4CHANGE",
   },
   {
     id: uuid(),
-    ref: "CDD1045",
+    ref: "$4.23",
     amount: 32.54,
     customer: {
-      name: "Clarke Gillebert",
+      name: "Uncle Toby's Oats 500g",
     },
     createdAt: 1554670800000,
     status: "RECYCLING",
   },
   {
     id: uuid(),
-    ref: "CDD1044",
+    ref: "$1.27",
     amount: 16.76,
     customer: {
-      name: "Adam Denisov",
+      name: "Apple",
     },
     createdAt: 1554670800000,
     status: "COMPOST",

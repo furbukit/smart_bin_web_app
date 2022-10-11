@@ -18,9 +18,8 @@ export const AreaSaved = (props) => (
             LANDFILL SAVED
           </Typography>
           <Typography color="textPrimary" variant="h4">
-            24km
+            24km^2
           </Typography>
-          <Typography style={{ fontSize: 15, lineHeight: 18 }}>2</Typography>
         </Grid>
         <Grid item>
           <Avatar

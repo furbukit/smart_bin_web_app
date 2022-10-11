@@ -14,37 +14,42 @@ import {
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import tomato from "../tomato.png";
+import cookies from "../cookies.png";
+import cherries from "../cherries.png";
+import soap from "../soap.png";
+import coke from "../coke.png";
 
 const products = [
   {
     id: uuid(),
-    name: "Dropbox",
-    imageUrl: "/static/images/products/product_1.png",
-    updatedAt: subHours(Date.now(), 2),
+    name: "Cherries (Fresh)",
+    imageUrl: cherries,
+    updatedAt: "Instead of 500g Frozen Cherries",
   },
   {
     id: uuid(),
-    name: "Medium Corporation",
-    imageUrl: "/static/images/products/product_2.png",
-    updatedAt: subHours(Date.now(), 2),
+    name: "HempCo Organic Soap",
+    imageUrl: soap,
+    updatedAt: "Instead of Palmolive Soap 6pk",
   },
   {
     id: uuid(),
-    name: "Slack",
-    imageUrl: "/static/images/products/product_3.png",
-    updatedAt: subHours(Date.now(), 3),
+    name: "1 x Tomato",
+    imageUrl: tomato,
+    updatedAt: "Instead of 3 x Tomato",
   },
   {
     id: uuid(),
-    name: "Lyft",
-    imageUrl: "/static/images/products/product_4.png",
-    updatedAt: subHours(Date.now(), 5),
+    name: "EmporityM 4pk Cookies",
+    imageUrl: cookies,
+    updatedAt: "Oreos Original 24pk",
   },
   {
     id: uuid(),
-    name: "GitHub",
-    imageUrl: "/static/images/products/product_5.png",
-    updatedAt: subHours(Date.now(), 9),
+    name: "Coca Cola 375mL (Can)",
+    imageUrl: coke,
+    updatedAt: "Instead of Coca Cola 360L (Bottle)",
   },
 ];
 
@@ -68,10 +73,7 @@ export const ItemsList = (props) => (
               }}
             />
           </ListItemAvatar>
-          <ListItemText
-            primary={product.name}
-            secondary={`Updated ${formatDistanceToNow(product.updatedAt)}`}
-          />
+          <ListItemText primary={product.name} secondary={product.updatedAt} />
           <IconButton edge="end" size="small">
             <MoreVertIcon />
           </IconButton>
