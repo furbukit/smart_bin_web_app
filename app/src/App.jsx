@@ -14,19 +14,17 @@ import { DashboardNavbar } from "./components/dashboard-navbar";
 import { theme } from "./theme";
 import { fetchData } from "./AwsFunctions";
 
-// STARTS HERE
 import * as AWS from "aws-sdk";
 
-const config = {
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-  accessSecretKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+AWS.config = new AWS.Config();
+AWS.config.update({
   region: "ap-southeast-2",
-  output: "json",
-};
-
-AWS.config.update(config);
-
-// ENDS HERE
+  credentials: {
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  },
+});
+//console.log(AWS.config.credentials);
 
 registerChartJs();
 

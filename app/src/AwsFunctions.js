@@ -1,17 +1,17 @@
 import { DynamoDB } from "aws-sdk";
 import * as AWS from "aws-sdk";
 
-const config = {
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-  accessSecretKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+//console.log(process.env.REACT_APP_AWS_ACCESS_KEY_ID);
+
+AWS.config = new AWS.Config();
+AWS.config.update({
   region: "ap-southeast-2",
-  output: "json",
-};
-
-AWS.config.update(config);
-
-console.log(AWS.config.credentials.accessKeyId);
-
+  credentials: {
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  },
+});
+//console.log(AWS.config.credentials);
 var docClient = new DynamoDB.DocumentClient();
 
 export const fetchData = (tableName) => {
