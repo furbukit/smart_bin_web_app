@@ -30,7 +30,7 @@ registerChartJs();
 
 function App() {
   const fetchDataFormDynamoDb = () => {
-    fetchData("users");
+    fetchData("items");
   };
   return (
     <ThemeProvider theme={theme}>

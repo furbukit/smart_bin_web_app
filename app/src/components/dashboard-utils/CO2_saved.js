@@ -24,7 +24,7 @@ export const CO2Saved = (props) => (
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: "success.main",
+              backgroundColor: "warning.main",
               height: 56,
               width: 56,
             }}

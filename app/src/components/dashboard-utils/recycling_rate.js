@@ -7,8 +7,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import InsertChartIcon from "@mui/icons-material/InsertChartOutlined";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 export const RecyclingRate = (props) => (
   <Card sx={{ height: "100%" }} {...props}>
@@ -25,12 +24,12 @@ export const RecyclingRate = (props) => (
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: "warning.main",
+              backgroundColor: "success.main",
               height: 56,
               width: 56,
             }}
           >
-            <InsertChartIcon />
+            <AutorenewIcon />
           </Avatar>
         </Grid>
       </Grid>

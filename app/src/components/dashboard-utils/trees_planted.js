@@ -16,7 +16,7 @@ export const TreesPlanted = (props) => (
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: "primary.main",
+              backgroundColor: "#64e65b",
               height: 56,
               width: 56,
             }}
