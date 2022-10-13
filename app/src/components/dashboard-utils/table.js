@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import React, { useMemo, useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
@@ -16,16 +17,26 @@ import {
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { SeverityPill } from "../severity-pill";
+import * as AWS from "aws-sdk";
 
-const items = [
+AWS.config = new AWS.Config();
+AWS.config.update({
+  region: "ap-southeast-2",
+  credentials: {
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  },
+});
+
+var items = [
   {
     id: uuid(),
-    ref: "$2.99",
+    ref: "%x",
     amount: 30.5,
     customer: {
-      name: "2L Full Cream Milk Bottle",
+      name: "bread",
     },
-    createdAt: 1555016400000,
+    createdAt: 1243412513,
     status: "RECYCLING",
   },
   {
@@ -79,67 +90,87 @@ const items = [
     status: "COMPOST",
   },
 ];
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-export const WasteTable = (props) => (
-  <Card {...props}>
-    <CardHeader title="Latest Items" />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Cost</TableCell>
-              <TableCell>Item</TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip enterDelay={300} title="Sort">
-                  <TableSortLabel active direction="desc">
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>Type</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {items.map((item) => (
-              <TableRow hover key={item.id}>
-                <TableCell>{item.ref}</TableCell>
-                <TableCell>{item.customer.name}</TableCell>
-                <TableCell>{format(item.createdAt, "dd/MM/yyyy")}</TableCell>
-                <TableCell>
-                  <SeverityPill
-                    color={
-                      (item.status === "RECYCLING" && "warning") ||
-                      (item.status === "GENERAL WASTE" && "error") ||
-                      (item.status === "COMPOST" && "success") ||
-                      (item.status === "CONTAINERS4CHANGE" && "info") ||
-                      "error"
-                    }
-                  >
-                    {item.status}
-                  </SeverityPill>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "flex-end",
-        p: 2,
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon fontSize="small" />}
-        size="small"
-        variant="text"
-      >
-        View all
-      </Button>
-    </Box>
-  </Card>
-);
+export function WasteTable() {
+  var params = {
+    FilterExpression: "BinNumber > :b",
+    ExpressionAttributeValues: {
+      ":b": -1,
+    },
+    TableName: "items",
+  };
+  docClient.scan(params, function (err, data) {
+    if (err) {
+      console.log(err);
+    }
+    if (!err) {
+      console.log(data);
+      return (
+        <Card>
+          <CardHeader title="Latest Items" />
+          <PerfectScrollbar>
+            <Box sx={{ minWidth: 800 }}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Cost</TableCell>
+                    <TableCell>Item</TableCell>
+                    <TableCell sortDirection="desc">
+                      <Tooltip enterDelay={300} title="Sort">
+                        <TableSortLabel active direction="desc">
+                          Date
+                        </TableSortLabel>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>Type</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {items.map((item) => (
+                    <TableRow hover key={item.id}>
+                      <TableCell>{item.ref}</TableCell>
+                      <TableCell>{item.customer.name}</TableCell>
+                      <TableCell>
+                        {format(item.createdAt, "dd/MM/yyyy")}
+                      </TableCell>
+                      <TableCell>
+                        <SeverityPill
+                          color={
+                            (item.status === "RECYCLING" && "warning") ||
+                            (item.status === "GENERAL WASTE" && "error") ||
+                            (item.status === "COMPOST" && "success") ||
+                            (item.status === "CONTAINERS4CHANGE" && "info") ||
+                            "error"
+                          }
+                        >
+                          {item.status}
+                        </SeverityPill>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </PerfectScrollbar>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              p: 2,
+            }}
+          >
+            <Button
+              color="primary"
+              endIcon={<ArrowRightIcon fontSize="small" />}
+              size="small"
+              variant="text"
+            >
+              View all
+            </Button>
+          </Box>
+        </Card>
+      );
+    }
+  });
+}

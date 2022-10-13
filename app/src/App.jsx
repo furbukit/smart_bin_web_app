@@ -12,7 +12,6 @@ import { registerChartJs } from "./components/dashboard-utils/register-chart-js"
 import { ThemeProvider } from "@mui/material/styles";
 import { DashboardNavbar } from "./components/dashboard-navbar";
 import { theme } from "./theme";
-import { fetchData } from "./AwsFunctions";
 
 import * as AWS from "aws-sdk";
 
@@ -27,11 +26,8 @@ AWS.config.update({
 //console.log(AWS.config.credentials);
 
 registerChartJs();
-
+WasteTable();
 function App() {
-  const fetchDataFormDynamoDb = () => {
-    fetchData("items");
-  };
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -57,7 +53,6 @@ function App() {
               <TreesPlanted sx={{ height: "100%" }} />
             </Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
-              <button onClick={() => fetchDataFormDynamoDb()}> Fetch </button>
               <WasteBar />
             </Grid>
             <Grid item lg={4} md={6} xl={3} xs={12}>
@@ -66,9 +61,7 @@ function App() {
             <Grid item lg={4} md={6} xl={3} xs={12}>
               <ItemsList sx={{ height: "100%" }} />
             </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              <WasteTable />
-            </Grid>
+            <Grid item lg={8} md={12} xl={9} xs={12}></Grid>
           </Grid>
         </Container>
       </Box>
