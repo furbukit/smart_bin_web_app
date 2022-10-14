@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Button } from "@mui/material";
 import { AreaSaved } from "./components/dashboard-utils/Area_saved";
 import { WasteTable } from "./components/dashboard-utils/table";
 import { ItemsList } from "./components/dashboard-utils/items_list";
@@ -10,18 +10,7 @@ import { PieChart } from "./components/dashboard-utils/pie";
 import { RecyclingRate } from "./components/dashboard-utils/recycling_rate";
 import { registerChartJs } from "./components/dashboard-utils/register-chart-js";
 import { DashboardNavbar } from "./components/dashboard-navbar";
-
-import * as AWS from "aws-sdk";
-
-AWS.config = new AWS.Config();
-AWS.config.update({
-  region: "ap-southeast-2",
-  credentials: {
-    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-  },
-});
-//console.log(AWS.config.credentials);
+import { fetchData } from './AwsFunctions';
 
 registerChartJs();
 WasteTable();
@@ -35,6 +24,7 @@ function App() {
         }}
       >
         <DashboardNavbar></DashboardNavbar>
+        <Button onClick={() => fetchData()} style={{marginTop: '20px'}}>Fetch Analytics Data</Button>
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
