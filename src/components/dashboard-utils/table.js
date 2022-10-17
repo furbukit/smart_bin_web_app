@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   CardHeader,
+  Grid,
   Table,
   TableBody,
   TableCell,
@@ -21,156 +22,146 @@ import * as AWS from "aws-sdk";
 
 AWS.config = new AWS.Config();
 AWS.config.update({
-  region: "ap-southeast-2",
+  region: "ap-northeast-1",
   credentials: {
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
   },
 });
+//console.log(AWS.config.credentials);
 
-var items = [
-  {
-    id: uuid(),
-    ref: "%x",
-    amount: 30.5,
-    customer: {
-      name: "bread",
-    },
-    createdAt: 1243412513,
-    status: "RECYCLING",
-  },
-  {
-    id: uuid(),
-    ref: "$43000",
-    amount: 25.1,
-    customer: {
-      name: "Lettuce",
-    },
-    createdAt: 1555016400000,
-    status: "COMPOST",
-  },
-  {
-    id: uuid(),
-    ref: "$12.97",
-    amount: 10.99,
-    customer: {
-      name: "Chicken Breast 1Kg",
-    },
-    createdAt: 1554930000000,
-    status: "GENERAL WASTE",
-  },
-  {
-    id: uuid(),
-    ref: "$5.79",
-    amount: 96.43,
-    customer: {
-      name: "Emu Export 330mL Bottle",
-    },
-    createdAt: 1554757200000,
-    status: "CONTAINERS4CHANGE",
-  },
-  {
-    id: uuid(),
-    ref: "$4.23",
-    amount: 32.54,
-    customer: {
-      name: "Uncle Toby's Oats 500g",
-    },
-    createdAt: 1554670800000,
-    status: "RECYCLING",
-  },
-  {
-    id: uuid(),
-    ref: "$1.27",
-    amount: 16.76,
-    customer: {
-      name: "Apple",
-    },
-    createdAt: 1554670800000,
-    status: "COMPOST",
-  },
-];
-const docClient = new AWS.DynamoDB.DocumentClient();
-
-export function WasteTable() {
-  var params = {
-    FilterExpression: "BinNumber > :b",
-    ExpressionAttributeValues: {
-      ":b": -1,
-    },
-    TableName: "items",
-  };
-  docClient.scan(params, function (err, data) {
-    if (err) {
-      console.log(err);
-    }
-    if (!err) {
-      console.log(data);
-      return (
-        <Card>
-          <CardHeader title="Latest Items" />
-          <PerfectScrollbar>
-            <Box sx={{ minWidth: 800 }}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Cost</TableCell>
-                    <TableCell>Item</TableCell>
-                    <TableCell sortDirection="desc">
-                      <Tooltip enterDelay={300} title="Sort">
-                        <TableSortLabel active direction="desc">
-                          Date
-                        </TableSortLabel>
-                      </Tooltip>
-                    </TableCell>
-                    <TableCell>Type</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {items.map((item) => (
-                    <TableRow hover key={item.id}>
-                      <TableCell>{item.ref}</TableCell>
-                      <TableCell>{item.customer.name}</TableCell>
-                      <TableCell>
-                        {format(item.createdAt, "dd/MM/yyyy")}
-                      </TableCell>
-                      <TableCell>
-                        <SeverityPill
-                          color={
-                            (item.status === "RECYCLING" && "warning") ||
-                            (item.status === "GENERAL WASTE" && "error") ||
-                            (item.status === "COMPOST" && "success") ||
-                            (item.status === "CONTAINERS4CHANGE" && "info") ||
-                            "error"
-                          }
-                        >
-                          {item.status}
-                        </SeverityPill>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </PerfectScrollbar>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              p: 2,
-            }}
-          >
-            <Button
-              color="primary"
-              endIcon={<ArrowRightIcon fontSize="small" />}
-              size="small"
-              variant="text"
-            >
-              View all
-            </Button>
-          </Box>
-        </Card>
-      );
-    }
-  });
+function binName(binId) {
+  var bins = ["GENERAL WATE", "RECYCLING", "COMPOST", "CONTAINERS4CHANGE"];
+  return bins[binId];
 }
+
+export const WasteTable = (props) => {
+  const { data } = props;
+  const items = data.Items.slice(0, 6);
+  /*var items = [
+    {
+      id: props.data.Items[0].Id,
+      ref: "$",
+      amount: 30.5,
+      customer: {
+        name: props.data.Items[0].Name,
+      },
+      createdAt: props.data.Items[0].Time,
+      status: binName(props.data.Items[0].BinNumber),
+    },
+    {
+      id: props.data.Items[1].Id,
+      ref: "$43000",
+      amount: 25.1,
+      customer: {
+        name: props.data.Items[1].Name,
+      },
+      createdAt: props.data.Items[1].Time,
+      status: binName(props.data.Items[1].BinNumber),
+    },
+    {
+      id: props.data.Items[2].Id,
+      ref: "$12.97",
+      amount: 10.99,
+      customer: {
+        name: props.data.Items[2].Name,
+      },
+      createdAt: props.data.Items[2].Time,
+      status: binName(props.data.Items[2].BinNumber),
+    },
+    {
+      id: props.data.Items[3].Id,
+      ref: "$5.79",
+      amount: 96.43,
+      customer: {
+        name: props.data.Items[3].Name,
+      },
+      createdAt: props.data.Items[3].Time,
+      status: binName(props.data.Items[3].BinNumber),
+    },
+    {
+      id: props.data.Items[4].Id,
+      ref: "$4.23",
+      amount: 32.54,
+      customer: {
+        name: props.data.Items[4].Name,
+      },
+      createdAt: props.data.Items[4].Time,
+      status: binName(props.data.Items[4].BinNumber),
+    },
+    {
+      id: props.data.Items[5].Id,
+      ref: "$1.27",
+      amount: 16.76,
+      customer: {
+        name: props.data.Items[5].Name,
+      },
+      createdAt: props.data.Items[5].Time,
+      status: binName(props.data.Items[5].BinNumber),
+    },
+  ]; */
+  return (
+    <Card {...props}>
+      <CardHeader title="Latest Items" />
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 800 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Item</TableCell>
+                <TableCell sortDirection="desc">
+                  <Tooltip enterDelay={300} title="Sort">
+                    <TableSortLabel active direction="desc">
+                      Date
+                    </TableSortLabel>
+                  </Tooltip>
+                </TableCell>
+                <TableCell>Type</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {items.map((item) => (
+                <TableRow hover key={item.Id}>
+                  <TableCell>{item.Name}</TableCell>
+                  <TableCell>{item.Time}</TableCell>
+                  <TableCell>
+                    <SeverityPill
+                      color={
+                        (binName(item.BinNumber) === "RECYCLING" &&
+                          "warning") ||
+                        (binName(item.BinNumber) === "GENERAL WASTE" &&
+                          "error") ||
+                        (binName(item.BinNumber) === "COMPOST" && "success") ||
+                        (binName(item.BinNumber) === "CONTAINERS4CHANGE" &&
+                          "info") ||
+                        "error"
+                      }
+                    >
+                      {binName(item.BinNumber)}
+                    </SeverityPill>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          p: 2,
+        }}
+      >
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          variant="text"
+        >
+          View all
+        </Button>
+      </Box>
+    </Card>
+  );
+};
