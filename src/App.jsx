@@ -54,22 +54,22 @@ function App() {
       <Container maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <RecyclingRate />
+            <RecyclingRate data={data} />
           </Grid>
           <Grid item xl={3} lg={3} sm={6} xs={12}>
-            <CO2Saved />
+            <CO2Saved data={data} />
           </Grid>
           <Grid item xl={3} lg={3} sm={6} xs={12}>
-            <AreaSaved />
+            <AreaSaved data={data} />
           </Grid>
           <Grid item xl={3} lg={3} sm={6} xs={12}>
-            <TreesPlanted sx={{ height: "100%" }} />
+            <TreesPlanted sx={{ height: "100%" }} data={data} />
           </Grid>
           <Grid item lg={8} md={12} xl={9} xs={12}>
-            <WasteBar />
+            <WasteBar data={data} />
           </Grid>
           <Grid item lg={4} md={6} xl={3} xs={12}>
-            <PieChart sx={{ height: "100%" }} />
+            <PieChart data={data} sx={{ height: "100%" }} />
           </Grid>
           <Grid item lg={4} md={6} xl={3} xs={12}>
             <ItemsList sx={{ height: "100%" }} />

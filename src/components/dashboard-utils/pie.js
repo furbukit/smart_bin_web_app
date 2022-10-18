@@ -13,13 +13,34 @@ import LocalDrinkIcon from "@mui/icons-material/LocalDrink";
 import GrassIcon from "@mui/icons-material/Grass";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
+function getValue(data, binNumber) {
+  var value = 0;
+  var length = data.Count;
+  if (length == 0) {
+    return 0;
+  }
+  for (let i = 0; i < length; i++) {
+    if (data.Items[i].BinNumber === binNumber) {
+      value++;
+    }
+  }
+  return ((value * 100) / length).toFixed(1);
+}
 export const PieChart = (props) => {
+  const { data } = props;
+  console.log(data);
+
   const theme = useTheme();
 
-  const data = {
+  const data2 = {
     datasets: [
       {
-        data: [63, 15, 23, 14],
+        data: [
+          getValue(data, 0),
+          getValue(data, 1),
+          getValue(data, 2),
+          getValue(data, 3),
+        ],
         backgroundColor: ["#E53935", "#FB8C00", "#3F51B5", "#64e65b"],
         borderWidth: 8,
         borderColor: "#FFFFFF",
@@ -54,25 +75,25 @@ export const PieChart = (props) => {
   const devices = [
     {
       title: "General Waste",
-      value: 63,
+      value: getValue(data, 0),
       icon: DeleteIcon,
       color: "#E53935",
     },
     {
       title: "Recycling",
-      value: 15,
+      value: getValue(data, 1),
       icon: AutorenewIcon,
       color: "#FB8C00",
     },
     {
       title: "Containers4Change",
-      value: 23,
+      value: getValue(data, 2),
       icon: LocalDrinkIcon,
       color: "#3F51B5",
     },
     {
       title: "Compost",
-      value: 14,
+      value: getValue(data, 3),
       icon: GrassIcon,
       color: "#64e65b",
     },
@@ -88,7 +109,7 @@ export const PieChart = (props) => {
             position: "relative",
           }}
         >
-          <Doughnut data={data} options={options} />
+          <Doughnut data={data2} options={options} />
         </Box>
         <Box
           sx={{

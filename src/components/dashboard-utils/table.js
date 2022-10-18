@@ -122,7 +122,7 @@ export const WasteTable = (props) => {
             <TableBody>
               {items.map((item) => (
                 <TableRow hover key={item.Id}>
-                  <TableCell>{item.Name}</TableCell>
+                  <TableCell>{item.Name.toUpperCase()}</TableCell>
                   <TableCell>{item.Time}</TableCell>
                   <TableCell>
                     <SeverityPill
